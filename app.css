@@ -1,0 +1,44 @@
+/* Put your css in here */
+
+.RESERVED {
+    background-color: red;
+    color: white;
+}
+
+.HOLD {
+    background-color: green;
+    color: white;
+}
+
+.EMPTY {
+    background-color: white;
+    color: black;
+}
+
+.legend {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.padding5 {
+    padding: 5px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.margin5 {
+    margin: 5px;
+}
+
+.tb-border {
+    border: 1px solid black;
+}
+
+.screen {
+    text-align: center;
+    background-color: #4285f4;
+    font-weight: 500;
+    color: white;
+}

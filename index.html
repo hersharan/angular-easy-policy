@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="EasyPolicy">
+
+<head>
+    <meta charset="utf-8" />
+    <title>EasyPolicy AngularJS</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.5.2/angular-local-storage.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div>
+        <h1>Movie Seat Reservation</h1>
+    </div>
+    <div class="margin5 padding5">
+        <div ng-if="!mainCtrl.showSeats" class="padding5">
+            <div>Start Booking(max {{mainCtrl.maxBookLimit}} tickets per User)</div>
+            <div class="margin5">
+                <input type="text" ng-model="mainCtrl.user.name" placeholder="Enter Name" class="padding5" />
+                <input type="number" ng-model="mainCtrl.user.seatsNeeded" placeholder="Enter no. of seats" class="padding5" />
+            </div>
+            <button type="submit" ng-click="goToSeats()" class="margin5 padding5">Start Selecting</button>
+            <div ng-if="mainCtrl.nameExists">This Person has already booked tickets.</div>
+        </div>
+        <div ng-if="mainCtrl.showSeats">
+            Booking {{mainCtrl.user.seatsNeeded}} tickets for {{mainCtrl.user.name}}
+        </div>
+    </div>
+    <div ng-if="mainCtrl.showSeats" class="margin5 padding5">
+        <div class="padding5 screen">
+            SCREEN
+        </div>
+        <div class="padding5">
+            <div ng-repeat="row in mainCtrl.seatsMatrix" class="padding5">
+                {{row.row}}
+                <span ng-repeat="seat in row.seats" class="padding5">
+                <span ng-if="$index===5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button ng-class="seat.status" class="padding5 margin5" name="seat.id" ng-click="onSeatClicked(seat,$parent.$index,$index)"> {{seat.id}}</button>
+                </span>
+            </div>
+        </div>
+        <div class="padding5">
+            <button ng-click="submitSeats()" class="padding5 left">Submit Selection</button>
+            <div class="padding5 right">
+                <div class="padding5 margin5"><span class="HOLD legend"></span><span class="padding5">Selected Seat</span></div>
+                <div class="padding5 margin5"><span class="RESERVED legend"></span><span>Reserved Seat</span></div>
+                <div class="padding5 margin5"><span class="EMPTY legend"></span><span>Empty Seat</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="margin5 padding5 clearfix" ng-if="mainCtrl.seatsBooked.length>0">
+        <table class="tb-border">
+            <tr class="margin5 padding5 tb-border">
+                <th class="margin5 padding5">Name</th>
+                <th class="margin5 padding5">No. of Seats</th>
+                <th class="margin5 padding5">Seats</th>
+            </tr>
+            <tr ng-repeat="user in mainCtrl.seatsBooked" class="margin5 padding5 tb-border">
+                <td class="margin5 padding5">{{user.user}}</td>
+                <td class="margin5 padding5">{{user.seatsNo}}</td>
+                <td class="margin5 padding5"><span ng-repeat="seat in user.seatsId">{{seat}}</span></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
